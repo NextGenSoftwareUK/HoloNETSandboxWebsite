@@ -1,0 +1,7 @@
+{
+  "name": "holonet-sandbox-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "The HoloNET sandbox page (sandbox.holonet.oasisomniverse.one): static; it talks to the sandbox service in holochain-open-dev/holochain-client-csharp/sandbox.",
+  "license": "MIT"
+}
