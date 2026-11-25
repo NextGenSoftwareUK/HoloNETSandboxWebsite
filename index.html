@@ -13,13 +13,16 @@
   --bg-deep:#030714;--bg-card:rgba(10,18,50,.75);--bg-card2:rgba(8,14,38,.9);
   --cyan:#3b82f6;--violet:#8b5cf6;--gold:#f0a500;--green:#34d399;--red:#f87171;
   --heading:#e8f4ff;--heading-sub:#a8c8f0;--text:#d0e4ff;--text-dim:#8aa0c8;
-  --border:rgba(59,130,246,.18);--border-v:rgba(139,92,246,.3);
+  --btn:#2563eb;--btn-violet:#7c3aed;--border:rgba(59,130,246,.18);--border-v:rgba(139,92,246,.3);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--bg-deep);color:var(--text);font-family:'Rajdhani',sans-serif;font-size:18px;line-height:1.55;min-height:100vh}
 a{color:var(--cyan)}
 code,pre,input,textarea,button{font-family:'Share Tech Mono',monospace}
+code{font-size:.88em;overflow-wrap:anywhere}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip{position:absolute;left:-999px;top:8px;z-index:20;background:var(--btn);color:#fff;padding:8px 14px;border-radius:6px}.skip:focus{left:8px}
 .nav{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:20px;padding:0 20px;min-height:60px;background:rgba(3,7,20,.94);border-bottom:1px solid var(--border);flex-wrap:wrap}
 .brand{font-family:'Orbitron',sans-serif;font-weight:700;letter-spacing:.12em;color:var(--cyan);text-decoration:none;font-size:15px}
 .nav .links{display:flex;gap:18px;margin-left:auto;flex-wrap:wrap}
@@ -29,39 +32,57 @@ main{max-width:1040px;margin:0 auto;padding:36px 20px 80px}
 h1{font-family:'Orbitron',sans-serif;font-size:clamp(24px,5vw,38px);color:var(--heading);letter-spacing:.06em;margin-bottom:10px}
 h2{font-family:'Orbitron',sans-serif;font-size:18px;color:var(--heading);letter-spacing:.1em;margin:44px 0 12px}
 p.lead{color:var(--heading-sub);max-width:760px;margin-bottom:18px}
-.status{display:inline-flex;align-items:center;gap:8px;font-family:'Share Tech Mono',monospace;font-size:13px;padding:6px 12px;border:1px solid var(--border);border-radius:999px;background:var(--bg-card)}
-.dot{width:9px;height:9px;border-radius:50%;background:var(--text-dim)}
+.status{display:inline-flex;align-items:center;gap:8px;max-width:100%;overflow-wrap:anywhere;font-family:'Share Tech Mono',monospace;font-size:13px;padding:6px 12px;border:1px solid var(--border);border-radius:16px;background:var(--bg-card)}
+.dot{flex:none;width:9px;height:9px;border-radius:50%;background:var(--text-dim)}
 .dot.ok{background:var(--green);box-shadow:0 0 8px var(--green)}.dot.bad{background:var(--red)}
-.tabs{display:flex;gap:8px;margin:28px 0 0;flex-wrap:wrap}
-.tab{padding:10px 18px;border:1px solid var(--border);border-bottom:0;border-radius:8px 8px 0 0;background:transparent;color:#a8bfd8;cursor:pointer;font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+.tabs{display:flex;gap:8px;margin:28px 0 0}
+.tab{flex:0 1 auto;white-space:nowrap;padding:10px 18px;border:1px solid var(--border);border-bottom:0;border-radius:8px 8px 0 0;background:transparent;color:#a8bfd8;cursor:pointer;font-size:13px;letter-spacing:.08em;text-transform:uppercase}
 .tab[aria-selected=true]{background:var(--bg-card);color:var(--heading);border-color:var(--cyan)}
 .panel{border:1px solid var(--border);border-radius:0 8px 8px 8px;background:var(--bg-card);padding:22px}
 .panel[hidden]{display:none}
 .row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
 input,textarea{background:var(--bg-card2);border:1px solid var(--border);border-radius:6px;color:var(--heading);padding:10px 12px;font-size:14px;min-width:0}
-input:focus,textarea:focus,button:focus-visible{outline:2px solid var(--cyan);outline-offset:1px}
+input:focus,textarea:focus,button:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid var(--cyan);outline-offset:1px}
+input:invalid:not(:placeholder-shown){border-color:var(--red)}
 input.key{width:200px}input.val{flex:1;min-width:200px}
-button.btn{background:var(--cyan);color:#fff;border:0;border-radius:6px;padding:10px 18px;font-size:13px;letter-spacing:.08em;cursor:pointer;text-transform:uppercase}
+button.btn{background:var(--btn);color:#fff;border:0;border-radius:6px;padding:10px 18px;font-size:13px;letter-spacing:.08em;cursor:pointer;text-transform:uppercase}
 button.btn:hover{filter:brightness(1.12)}button.btn[disabled]{opacity:.5;cursor:not-allowed}
-button.btn.violet{background:var(--violet)}button.btn.ghost{background:transparent;border:1px solid var(--border);color:#a8bfd8}
+button.btn.violet{background:var(--btn-violet)}button.btn.ghost{background:transparent;border:1px solid var(--border);color:#a8bfd8}
+button.btn.small{padding:6px 12px;font-size:12px}
 table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--border);vertical-align:top;word-break:break-word}
 th{color:var(--text-dim);font-weight:400;font-size:12px;letter-spacing:.1em;text-transform:uppercase}
-pre{background:var(--bg-card2);border:1px solid var(--border);border-radius:6px;padding:14px;overflow:auto;font-size:13px;color:#cfe3ff;white-space:pre-wrap;word-break:break-word}
-.msg{padding:10px 0;border-bottom:1px solid var(--border)}.msg b{color:var(--heading)}.msg small{color:var(--text-dim)}
+pre:focus-visible{outline:2px solid var(--cyan);outline-offset:1px}
+pre{background:var(--bg-card2);border:1px solid var(--border);border-radius:6px;padding:14px;overflow-x:auto;font-size:13px;line-height:1.6;color:#cfe3ff;white-space:pre;margin:12px 0;max-width:100%}
+pre code{font-size:1em}
+pre.out{white-space:pre-wrap;overflow-wrap:anywhere;min-height:3.4em}
+pre.out.ok{border-color:rgba(52,211,153,.45)}pre.out.fail{border-color:rgba(248,113,113,.5)}
+.count{font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--text-dim);align-self:center}
+.msg{padding:10px 0;border-bottom:1px solid var(--border);overflow-wrap:anywhere}.msg b{color:var(--heading)}.msg time{color:var(--text-dim);font-size:13px;margin-left:8px;font-family:'Share Tech Mono',monospace}
 .note{color:var(--text-dim);font-size:15px;margin-top:10px}
 .err{color:var(--red);font-size:15px;margin-top:8px;min-height:1.2em}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
-.card{border:1px solid var(--border);border-radius:8px;padding:16px;background:var(--bg-card)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.card{border:1px solid var(--border);border-radius:8px;padding:16px;background:var(--bg-card);min-width:0}
 .card h3{font-family:'Orbitron',sans-serif;font-size:13px;color:var(--heading);letter-spacing:.1em;margin-bottom:6px}
 .demo-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
 .chip{padding:7px 14px;border:1px solid var(--border);border-radius:999px;background:transparent;color:#a8bfd8;cursor:pointer;font-size:13px}
-.chip[aria-pressed=true]{background:var(--violet);border-color:var(--violet);color:#fff}
+.chip[aria-pressed=true]{background:var(--btn-violet);border-color:var(--btn-violet);color:#fff}
+.chip[disabled]{cursor:wait}
 details{margin-top:14px}summary{cursor:pointer;color:var(--heading-sub)}
 footer{border-top:1px solid var(--border);padding:24px 20px;text-align:center;color:var(--text-dim);font-size:14px}
-@media (max-width:600px){main{padding:24px 16px 60px}.panel{padding:14px}input.key{width:100%}}
+@media (max-width:600px){
+  body{font-size:17px}
+  .nav{gap:10px;padding:8px 16px}.nav .links{gap:12px;margin-left:0}
+  main{padding:24px 16px 60px}.panel{padding:14px}
+  input.key,input.val{width:100%;flex:1 1 100%;min-width:0}
+  .row .btn{flex:1 1 auto}.status-row .btn{flex:0 0 auto}
+  .tab{padding:9px 10px;font-size:12px;letter-spacing:.04em;flex:1 1 0;text-align:center}
+  th:nth-child(3),td:nth-child(3){width:1%}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to the sandbox</a>
 <header class="nav">
   <a class="brand" href="https://holonet.oasisomniverse.one">HOLONET</a>
   <nav class="links" aria-label="HoloNET sites">
@@ -72,52 +93,62 @@ footer{border-top:1px solid var(--border);padding:24px 20px;text-align:center;co
   </nav>
 </header>
 
-<main>
+<main id="main">
   <h1>HoloNET Sandbox</h1>
   <p class="lead">Try HoloNET with nothing to install. This page talks to a real Holochain conductor through the HoloNET API: save and load your own data, post to a board that every visitor shares, and run the API, Client, ORM and HyperNET demos.</p>
-  <p><span class="status" role="status" aria-live="polite"><span class="dot" id="dot"></span><span id="status-text">Connecting to the sandbox...</span></span></p>
-  <p class="note">The sandbox is shared and public: don't put anything private in it. Your keys disappear after 30 minutes idle, and the board keeps the latest 100 messages.</p>
+  <p class="row status-row" style="align-items:center;margin-bottom:0">
+    <span class="status" role="status" aria-live="polite"><span class="dot" id="dot" aria-hidden="true"></span><span id="status-text">Connecting to the sandbox...</span></span>
+    <button class="btn ghost small" type="button" id="retry" hidden>Try again</button>
+  </p>
+  <p class="note">The sandbox is shared and public: don't put anything private in it. Your keys disappear after <span id="idle-minutes">30</span> minutes idle, and the board keeps the latest <span id="board-max">100</span> messages.</p>
 
-  <div class="tabs" role="tablist">
-    <button class="tab" role="tab" id="tab-store" aria-selected="true" aria-controls="panel-store">Your data</button>
-    <button class="tab" role="tab" id="tab-board" aria-selected="false" aria-controls="panel-board">Shared board</button>
-    <button class="tab" role="tab" id="tab-demos" aria-selected="false" aria-controls="panel-demos">Run a demo</button>
+  <div class="tabs" role="tablist" aria-label="Sandbox">
+    <button class="tab" role="tab" id="tab-store" aria-selected="true" aria-controls="panel-store" tabindex="0">Your data</button>
+    <button class="tab" role="tab" id="tab-board" aria-selected="false" aria-controls="panel-board" tabindex="-1">Shared board</button>
+    <button class="tab" role="tab" id="tab-demos" aria-selected="false" aria-controls="panel-demos" tabindex="-1">Run a demo</button>
   </div>
 
-  <section class="panel" id="panel-store" role="tabpanel" aria-labelledby="tab-store">
+  <section class="panel" id="panel-store" role="tabpanel" aria-labelledby="tab-store" tabindex="0">
     <p class="lead">Each key is its own entry on Holochain, saved with <code>HoloNETAPI.SaveDataAsync(key, value)</code>. Only you see these keys.</p>
-    <form class="row" id="store-form">
-      <input class="key" id="key" placeholder="key" aria-label="Key" maxlength="40" required>
-      <input class="val" id="value" placeholder="value" aria-label="Value" maxlength="500">
-      <button class="btn" type="submit">Save</button>
+    <form class="row" id="store-form" novalidate>
+      <label class="sr-only" for="key">Key</label>
+      <input class="key" id="key" placeholder="key" maxlength="40" required pattern="[A-Za-z0-9._\-]{1,40}" autocomplete="off" spellcheck="false" aria-describedby="key-hint">
+      <label class="sr-only" for="value">Value</label>
+      <input class="val" id="value" placeholder="value" maxlength="500" autocomplete="off" aria-describedby="value-count">
+      <button class="btn" type="submit" id="store-save">Save</button>
     </form>
+    <p class="note" id="key-hint" style="margin-top:0">Keys: 1 to 40 letters, digits, dots, dashes or underscores. Values: up to 500 characters, 25 keys each. <span class="count" id="value-count">0 / 500</span></p>
     <div class="err" id="store-err" role="alert"></div>
-    <table><thead><tr><th>Key</th><th>Value</th><th></th></tr></thead><tbody id="store-rows"></tbody></table>
+    <table><caption class="sr-only">Your saved keys</caption><thead><tr><th scope="col">Key</th><th scope="col">Value</th><th scope="col"><span class="sr-only">Actions</span></th></tr></thead><tbody id="store-rows"></tbody></table>
     <p class="note" id="store-empty">Nothing saved yet. Try the key <code>greeting</code> with the value <code>Hello, Holochain!</code>.</p>
-    <pre>await HoloNETAPI.SaveDataAsync("greeting", "Hello, Holochain!");
+    <pre tabindex="0" aria-label="Example code"><code>await HoloNETAPI.SaveDataAsync("greeting", "Hello, Holochain!");
 string greeting = (await HoloNETAPI.LoadDataAsync("greeting")).Result;
-await HoloNETAPI.DeleteDataAsync("greeting");</pre>
+await HoloNETAPI.DeleteDataAsync("greeting");</code></pre>
   </section>
 
-  <section class="panel" id="panel-board" role="tabpanel" aria-labelledby="tab-board" hidden>
+  <section class="panel" id="panel-board" role="tabpanel" aria-labelledby="tab-board" tabindex="0" hidden>
     <p class="lead">Shared data every agent can read and write, with <code>HoloNETAPI.SaveSharedDataAsync(ns, key, value)</code>. Everyone using this page sees the same board.</p>
-    <form class="row" id="board-form">
-      <input class="key" id="board-name" placeholder="your name" aria-label="Your name" maxlength="24">
-      <input class="val" id="board-text" placeholder="say something" aria-label="Message" maxlength="280" required>
-      <button class="btn violet" type="submit">Post</button>
+    <form class="row" id="board-form" novalidate>
+      <label class="sr-only" for="board-name">Your name</label>
+      <input class="key" id="board-name" placeholder="your name" maxlength="24" autocomplete="nickname">
+      <label class="sr-only" for="board-text">Message</label>
+      <input class="val" id="board-text" placeholder="say something" maxlength="280" required autocomplete="off" aria-describedby="board-count">
+      <button class="btn violet" type="submit" id="board-post">Post</button>
       <button class="btn ghost" type="button" id="board-refresh">Refresh</button>
     </form>
+    <p class="note" style="margin-top:0">Messages: up to 280 characters. The board refreshes itself while you look at it. <span class="count" id="board-count">0 / 280</span></p>
     <div class="err" id="board-err" role="alert"></div>
-    <div id="board-list"></div>
+    <div id="board-list" aria-live="polite" aria-busy="false"></div>
   </section>
 
-  <section class="panel" id="panel-demos" role="tabpanel" aria-labelledby="tab-demos" hidden>
+  <section class="panel" id="panel-demos" role="tabpanel" aria-labelledby="tab-demos" tabindex="0" hidden>
     <p class="lead">One click runs the same demo that <code>dotnet new holonet-...</code> gives you, on the sandbox's conductor. The code is fixed: the page can't run anything else.</p>
-    <div class="demo-tabs" id="demo-chips"></div>
-    <pre id="demo-code"></pre>
-    <div class="row"><button class="btn violet" id="demo-run" type="button">Run this demo</button></div>
+    <div class="demo-tabs" id="demo-chips" role="group" aria-label="Choose a demo"></div>
+    <p class="note" id="demo-about" style="margin-top:0"></p>
+    <pre tabindex="0" aria-label="The demo's code" id="demo-code-box" hidden><code id="demo-code"></code></pre>
+    <div class="row"><button class="btn violet" id="demo-run" type="button" disabled>Run this demo</button></div>
     <div class="err" id="demo-err" role="alert"></div>
-    <pre id="demo-out" aria-live="polite">The result appears here.</pre>
+    <pre class="out" id="demo-out" aria-live="polite">The result appears here.</pre>
   </section>
 
   <h2>Take it home</h2>
@@ -127,13 +158,16 @@ await HoloNETAPI.DeleteDataAsync("greeting");</pre>
     <div class="card"><h3>Read the docs</h3><p>Every guide and the full API reference. <a href="https://docs.holonet.oasisomniverse.one">Documentation</a></p></div>
   </div>
 
-  <details>
+  <details id="settings">
     <summary>Backend settings</summary>
     <p class="note">The sandbox backend is a small service, in <a href="https://github.com/holochain-open-dev/holochain-client-csharp/tree/main/sandbox">sandbox/</a> in the HoloNET repository. To run your own, see its README, then point this page at it:</p>
-    <div class="row" style="margin-top:10px">
-      <input class="val" id="api-base" aria-label="Sandbox backend URL" placeholder="https://...">
-      <button class="btn ghost" type="button" id="api-save">Use this backend</button>
-    </div>
+    <form class="row" id="api-form" style="margin-top:10px" novalidate>
+      <label class="sr-only" for="api-base">Sandbox backend URL</label>
+      <input class="val" id="api-base" type="url" placeholder="https://..." autocomplete="url" spellcheck="false">
+      <button class="btn ghost" type="submit">Use this backend</button>
+      <button class="btn ghost" type="button" id="api-reset">Use the default</button>
+    </form>
+    <div class="err" id="api-err" role="alert"></div>
   </details>
 </main>
 
@@ -143,24 +177,44 @@ await HoloNETAPI.DeleteDataAsync("greeting");</pre>
 (function () {
   'use strict';
   var HOSTED = 'https://api.sandbox.holonet.oasisomniverse.one';
-  var onStaticHost = location.hostname === 'sandbox.holonet.oasisomniverse.one';
-  var base = onStaticHost ? HOSTED : location.origin;      // served by the sandbox service itself: same origin
+  var onStaticHost = location.hostname === 'sandbox.holonet.oasisomniverse.one' || /\.vercel\.app$/.test(location.hostname) || location.protocol === 'file:';
+  var DEFAULT_BASE = onStaticHost ? HOSTED : location.origin;   // served by the sandbox service itself: same origin
+  var base = DEFAULT_BASE;
   try { var saved = localStorage.getItem('holonet-sandbox-api'); if (saved) base = saved; } catch (e) {}
-  var sid = null;
+  var sid = null, ready = false, boardTimer = null, notReadyMsg = 'Still connecting to the sandbox: wait a moment.';
+  var DEMO_ABOUT = {
+    api: 'HoloNET API: one-line key/value and shared data, no Holochain knowledge needed.',
+    client: 'HoloNET Client: connect to the conductor, install the hApp for a new agent and call a zome function.',
+    orm: 'HoloNET ORM: a C# class mapped to a Holochain entry, with create, load, change tracking, update and delete.',
+    hypernet: 'HoloNET HyperNET: two agents, Alice and Bob, join a zone and send each other real-time messages.'
+  };
 
   function $(id) { return document.getElementById(id); }
   function el(tag, text, cls) { var e = document.createElement(tag); if (text != null) e.textContent = text; if (cls) e.className = cls; return e; }
-
-  async function api(method, path, body) {
-    var res = await fetch(base + path, { method: method, headers: body ? { 'Content-Type': 'application/json' } : undefined, body: body ? JSON.stringify(body) : undefined });
-    var data = null;
-    try { data = await res.json(); } catch (e) {}
-    if (!res.ok) { var err = new Error((data && data.error) || ('The sandbox answered ' + res.status)); err.status = res.status; throw err; }
-    return data;
-  }
   function say(id, msg) { $(id).textContent = msg || ''; }
 
+  async function api(method, path, body) {
+    var res;
+    try {
+      res = await fetch(base + path, { method: method, headers: body ? { 'Content-Type': 'application/json' } : undefined, body: body ? JSON.stringify(body) : undefined });
+    } catch (e) {
+      var down = new Error('Cannot reach the sandbox backend. Check your connection, or try again in a moment.'); down.status = 0; throw down;
+    }
+    var data = null;
+    try { data = await res.json(); } catch (e) {}
+    if (!res.ok) {
+      var msg = (data && data.error) || (res.status === 429 ? 'Too many requests: wait a minute and try again.' : 'The sandbox answered ' + res.status + '.');
+      var err = new Error(msg); err.status = res.status; throw err;
+    }
+    return data;
+  }
+
   // ---- connection and session ----
+  function setStatus(kind, text) {
+    $('dot').className = 'dot' + (kind ? ' ' + kind : '');
+    $('status-text').textContent = text;
+    $('retry').hidden = kind !== 'bad';
+  }
   async function startSession() {
     var s = await api('POST', '/api/session');
     sid = s.sessionId;
@@ -168,21 +222,39 @@ await HoloNETAPI.DeleteDataAsync("greeting");</pre>
   }
   async function connect() {
     $('api-base').value = base;
+    ready = false; sid = null;
+    setStatus('', 'Connecting to the sandbox...');
+    say('store-err', '');
     try {
       var st = await api('GET', '/api/status');
-      $('dot').className = 'dot ' + (st.ready ? 'ok' : 'bad');
-      $('status-text').textContent = st.ready ? 'Connected to a Holochain conductor' : ('The sandbox is up but its conductor is not answering' + (st.message ? ': ' + st.message : ''));
-      if (st.ready) {
-        try { sid = sessionStorage.getItem('holonet-sandbox-session'); } catch (e) {}
-        if (sid) { try { await refreshStore(); } catch (e) { sid = null; } }
-        if (!sid) { await startSession(); await refreshStore(); }
-        refreshBoard();
+      if (st.limits) { $('idle-minutes').textContent = st.limits.sessionIdleMinutes; $('board-max').textContent = st.limits.maxBoardMessages; }
+      if (!st.ready) {
+        setStatus('bad', 'The sandbox is up, but its Holochain conductor is not answering' + (st.message ? ': ' + st.message : '.'));
+        notReadyMsg = 'The sandbox\'s Holochain conductor is not answering, so nothing can be saved right now. Use "Try again" in a minute.';
+        say('store-err', notReadyMsg);
+        return;
       }
+      try { sid = sessionStorage.getItem('holonet-sandbox-session'); } catch (e) {}
+      if (sid) { try { await refreshStore(); } catch (e) { sid = null; } }
+      if (!sid) { await startSession(); await refreshStore(); }
+      ready = true;
+      setStatus('ok', 'Connected to a Holochain conductor');
+      refreshBoard();
     } catch (e) {
-      $('dot').className = 'dot bad';
-      $('status-text').textContent = 'Cannot reach the sandbox backend (' + base + ').';
-      say('store-err', 'The hosted sandbox is not available right now. You can run it yourself: see the README in sandbox/ in the HoloNET repository, or use the Backend settings below.');
+      var hosted = base === HOSTED;
+      setStatus('bad', 'Cannot reach the sandbox backend (' + base + ').');
+      notReadyMsg = hosted
+        ? 'The hosted sandbox is not available right now. You can run it yourself: see the README in sandbox/ in the HoloNET repository, then use Backend settings at the bottom of this page.'
+        : e.message + ' Check the address in Backend settings at the bottom of this page.';
+      say('store-err', notReadyMsg);
     }
+  }
+  $('retry').addEventListener('click', function () { connect(); loadDemos(); });
+
+  function needReady(errId) {
+    if (ready && sid) return true;
+    say(errId, notReadyMsg);
+    return false;
   }
 
   // ---- your data ----
@@ -190,70 +262,159 @@ await HoloNETAPI.DeleteDataAsync("greeting");</pre>
     var data = await api('GET', '/api/store/' + sid);
     var body = $('store-rows'); body.replaceChildren();
     data.items.forEach(function (it) {
-      var tr = el('tr'); tr.appendChild(el('td', it.key)); tr.appendChild(el('td', it.value == null ? '(unreadable)' : it.value));
-      var td = el('td'); var del = el('button', 'Delete', 'btn ghost'); del.type = 'button';
-      del.addEventListener('click', async function () { try { await api('DELETE', '/api/store/' + sid + '/' + encodeURIComponent(it.key)); await refreshStore(); } catch (e) { say('store-err', e.message); } });
+      var tr = el('tr'); tr.appendChild(el('td', it.key)); tr.appendChild(el('td', it.value == null ? '(could not be read)' : it.value));
+      var td = el('td'); var del = el('button', 'Delete', 'btn ghost small'); del.type = 'button'; del.setAttribute('aria-label', 'Delete ' + it.key);
+      del.addEventListener('click', async function () {
+        del.disabled = true; say('store-err', '');
+        try { await api('DELETE', '/api/store/' + sid + '/' + encodeURIComponent(it.key)); await refreshStore(); $('key').focus(); }
+        catch (e) { del.disabled = false; say('store-err', e.message); }
+      });
       td.appendChild(del); tr.appendChild(td); body.appendChild(tr);
     });
     $('store-empty').hidden = data.items.length > 0;
   }
+  $('value').addEventListener('input', function () { $('value-count').textContent = $('value').value.length + ' / 500'; });
   $('store-form').addEventListener('submit', async function (ev) {
     ev.preventDefault(); say('store-err', '');
-    try { await api('PUT', '/api/store/' + sid + '/' + encodeURIComponent($('key').value.trim()), { value: $('value').value }); $('value').value = ''; await refreshStore(); }
-    catch (e) { if (e.status === 404) { try { await startSession(); } catch (x) {} } say('store-err', e.message); }
+    if (!needReady('store-err')) return;
+    var key = $('key').value.trim();
+    if (!/^[A-Za-z0-9._-]{1,40}$/.test(key)) { say('store-err', 'A key is 1 to 40 letters, digits, dots, dashes or underscores.'); $('key').focus(); return; }
+    var btn = $('store-save'); btn.disabled = true;
+    async function save() { await api('PUT', '/api/store/' + sid + '/' + encodeURIComponent(key), { value: $('value').value }); }
+    try {
+      try { await save(); }
+      catch (e) { if (e.status !== 404) throw e; await startSession(); await save(); }   // the session expired: start a new one and save there
+      $('value').value = ''; $('value-count').textContent = '0 / 500';
+      await refreshStore();
+    }
+    catch (e) { say('store-err', e.message); }
+    finally { btn.disabled = false; }
   });
 
   // ---- board ----
-  async function refreshBoard() {
-    try {
-      var data = await api('GET', '/api/board'); var list = $('board-list'); list.replaceChildren();
-      if (!data.messages.length) list.appendChild(el('p', 'No messages yet. Be the first.', 'note'));
-      data.messages.forEach(function (m) { var d = el('div', null, 'msg'); d.appendChild(el('b', m.name)); d.appendChild(document.createTextNode(': ' + m.text)); list.appendChild(d); });
-    } catch (e) { say('board-err', e.message); }
+  function tickTime(id) {
+    var ticks = Number(String(id).split('-')[0]);       // .NET ticks (100 ns since 0001-01-01 UTC), the board key's prefix
+    if (!isFinite(ticks) || ticks <= 0) return null;
+    return new Date((ticks - 621355968000000000) / 10000);
   }
+  function ago(d) {
+    var s = Math.max(0, Math.round((Date.now() - d.getTime()) / 1000));
+    if (s < 60) return 'just now';
+    if (s < 3600) return Math.floor(s / 60) + ' min ago';
+    if (s < 86400) return Math.floor(s / 3600) + ' h ago';
+    return d.toLocaleDateString();
+  }
+  async function refreshBoard() {
+    var list = $('board-list'); list.setAttribute('aria-busy', 'true');
+    try {
+      var data = await api('GET', '/api/board'); list.replaceChildren(); say('board-err', '');
+      if (!data.messages.length) list.appendChild(el('p', 'No messages yet. Be the first.', 'note'));
+      data.messages.forEach(function (m) {
+        var d = el('div', null, 'msg'); d.appendChild(el('b', m.name)); d.appendChild(document.createTextNode(': ' + m.text));
+        var when = tickTime(m.id); if (when) { var t = el('time', ago(when)); t.dateTime = when.toISOString(); t.title = when.toLocaleString(); d.appendChild(t); }
+        list.appendChild(d);
+      });
+    } catch (e) { say('board-err', e.message); }
+    list.setAttribute('aria-busy', 'false');
+  }
+  try { $('board-name').value = localStorage.getItem('holonet-sandbox-name') || ''; } catch (e) {}
+  $('board-text').addEventListener('input', function () { $('board-count').textContent = $('board-text').value.length + ' / 280'; });
   $('board-form').addEventListener('submit', async function (ev) {
     ev.preventDefault(); say('board-err', '');
-    try { await api('POST', '/api/board', { name: $('board-name').value, text: $('board-text').value }); $('board-text').value = ''; await refreshBoard(); }
+    if (!needReady('board-err')) return;
+    var text = $('board-text').value.trim();
+    if (!text) { say('board-err', 'Write a message first (1 to 280 characters).'); $('board-text').focus(); return; }
+    var btn = $('board-post'); btn.disabled = true;
+    try {
+      try { localStorage.setItem('holonet-sandbox-name', $('board-name').value.trim()); } catch (e) {}
+      await api('POST', '/api/board', { name: $('board-name').value, text: text });
+      $('board-text').value = ''; $('board-count').textContent = '0 / 280';
+      await refreshBoard();
+    }
     catch (e) { say('board-err', e.message); }
+    finally { btn.disabled = false; }
   });
   $('board-refresh').addEventListener('click', refreshBoard);
+  function watchBoard(on) {
+    clearInterval(boardTimer); boardTimer = null;
+    if (on) boardTimer = setInterval(function () { if (ready && !document.hidden) refreshBoard(); }, 20000);
+  }
 
   // ---- demos ----
-  var demos = [], current = null;
+  var demos = [], current = null, running = false;
   function chooseDemo(name) {
+    if (running) return;
     current = name;
     document.querySelectorAll('#demo-chips .chip').forEach(function (c) { c.setAttribute('aria-pressed', String(c.dataset.name === name)); });
-    var d = demos.find(function (x) { return x.name === name; }); $('demo-code').textContent = d ? d.code : '';
-    $('demo-out').textContent = 'The result appears here.'; say('demo-err', '');
+    var d = demos.find(function (x) { return x.name === name; });
+    $('demo-code').textContent = d ? d.code : ''; $('demo-code-box').hidden = !d;
+    $('demo-about').textContent = DEMO_ABOUT[name] || '';
+    var out = $('demo-out'); out.textContent = 'The result appears here.'; out.className = 'out'; say('demo-err', '');
   }
   async function loadDemos() {
     try {
       demos = await api('GET', '/api/demos'); var chips = $('demo-chips'); chips.replaceChildren();
       var labels = { api: 'HoloNET API', client: 'HoloNET Client', orm: 'HoloNET ORM', hypernet: 'HoloNET HyperNET' };
       demos.forEach(function (d) { var c = el('button', labels[d.name] || d.name, 'chip'); c.type = 'button'; c.dataset.name = d.name; c.setAttribute('aria-pressed', 'false'); c.addEventListener('click', function () { chooseDemo(d.name); }); chips.appendChild(c); });
-      if (demos.length) chooseDemo(demos[0].name);
-    } catch (e) { say('demo-err', e.message); }
+      if (demos.length) { chooseDemo(current && demos.some(function (x) { return x.name === current; }) ? current : demos[0].name); $('demo-run').disabled = false; }
+      say('demo-err', '');
+    } catch (e) { say('demo-err', 'Could not load the demos: ' + e.message); }
   }
   $('demo-run').addEventListener('click', async function () {
-    if (!current) return; var btn = $('demo-run'); btn.disabled = true; say('demo-err', ''); $('demo-out').textContent = 'Running... (the first run can take a few seconds)';
-    try { var r = await api('POST', '/api/demos/' + current + '/run'); $('demo-out').textContent = r.output || '(no output)'; }
-    catch (e) { say('demo-err', e.message); $('demo-out').textContent = ''; }
-    btn.disabled = false;
+    if (!current || running) return;
+    running = true;
+    var btn = $('demo-run'), out = $('demo-out'), started = Date.now();
+    btn.disabled = true; document.querySelectorAll('#demo-chips .chip').forEach(function (c) { c.disabled = true; });
+    say('demo-err', ''); out.className = 'out';
+    var tick = setInterval(function () { out.textContent = 'Running on the conductor... ' + Math.round((Date.now() - started) / 1000) + ' s'; }, 1000);
+    out.textContent = 'Running on the conductor...';
+    try {
+      var r = await api('POST', '/api/demos/' + current + '/run');
+      out.textContent = (r.output || '(no output)').replace(/\s+$/, '') + '\n\n(' + ((Date.now() - started) / 1000).toFixed(1) + ' s)';
+      out.className = 'out ok';
+    }
+    catch (e) { say('demo-err', e.message); out.textContent = 'The demo did not finish.'; out.className = 'out fail'; }
+    finally {
+      clearInterval(tick); running = false; btn.disabled = false;
+      document.querySelectorAll('#demo-chips .chip').forEach(function (c) { c.disabled = false; });
+    }
   });
 
-  // ---- tabs and settings ----
+  // ---- tabs (arrow keys move between them, as the ARIA tabs pattern expects) ----
   var tabs = ['store', 'board', 'demos'];
-  tabs.forEach(function (t) {
-    $('tab-' + t).addEventListener('click', function () {
-      tabs.forEach(function (o) { $('tab-' + o).setAttribute('aria-selected', String(o === t)); $('panel-' + o).hidden = o !== t; });
-      if (t === 'board') refreshBoard();
+  function selectTab(t, focus) {
+    tabs.forEach(function (o) {
+      var tab = $('tab-' + o), on = o === t;
+      tab.setAttribute('aria-selected', String(on)); tab.tabIndex = on ? 0 : -1; $('panel-' + o).hidden = !on;
+    });
+    if (focus) $('tab-' + t).focus();
+    if (t === 'board' && ready) refreshBoard();
+    watchBoard(t === 'board');
+    if (history.replaceState) history.replaceState(null, '', t === 'store' ? location.pathname + location.search : '#' + t);
+  }
+  tabs.forEach(function (t, i) {
+    var tab = $('tab-' + t);
+    tab.addEventListener('click', function () { selectTab(t); });
+    tab.addEventListener('keydown', function (ev) {
+      var next = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: tabs.length - 1 }[ev.key];
+      if (next === undefined) return;
+      ev.preventDefault(); selectTab(tabs[(next + tabs.length) % tabs.length], true);
     });
   });
-  $('api-save').addEventListener('click', function () {
+  if (tabs.indexOf(location.hash.slice(1)) > 0) selectTab(location.hash.slice(1));
+
+  // ---- backend settings ----
+  $('api-form').addEventListener('submit', function (ev) {
+    ev.preventDefault(); say('api-err', '');
     var v = $('api-base').value.trim().replace(/\/+$/, '');
-    if (!/^https?:\/\//.test(v)) { say('store-err', 'Enter a URL that starts with http:// or https://'); return; }
-    try { localStorage.setItem('holonet-sandbox-api', v); } catch (e) {}
+    if (!/^https?:\/\/[^\s/]+/.test(v)) { say('api-err', 'Enter a URL that starts with http:// or https://'); return; }
+    try { localStorage.setItem('holonet-sandbox-api', v); sessionStorage.removeItem('holonet-sandbox-session'); } catch (e) {}
     base = v; connect(); loadDemos();
+  });
+  $('api-reset').addEventListener('click', function () {
+    say('api-err', '');
+    try { localStorage.removeItem('holonet-sandbox-api'); sessionStorage.removeItem('holonet-sandbox-session'); } catch (e) {}
+    base = DEFAULT_BASE; connect(); loadDemos();
   });
 
   connect(); loadDemos();
